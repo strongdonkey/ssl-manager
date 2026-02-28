@@ -1,0 +1,14 @@
+[Unit]
+Description=SSL Certificate Manager - Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/ssl-manager
+ExecStart=/usr/local/bin/ssl-server -config /etc/ssl-manager/server.yaml
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

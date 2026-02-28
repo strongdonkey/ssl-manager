@@ -1,0 +1,26 @@
+# SSL Agent 配置
+# 部署在每台运行 Nginx 的服务器上
+
+agent_id: ""           # 留空则自动使用 hostname
+log_level: "info"
+log_file: "/var/log/ssl-manager/agent.log"
+dry_run: false         # true = 只打印不执行，用于测试
+
+etcd:
+  endpoints:
+    - "http://etcd.internal:2379"
+  dial_timeout: 5
+
+# 默认 "nginx -s reload"，也可改为 "systemctl reload nginx"
+nginx_reload_cmd: "nginx -s reload"
+
+# 证书本地存放根目录（对应 Nginx ssl_certificate 路径）
+cert_base_dir: "/etc/nginx/ssl"
+
+# 本 agent 负责的域名（留空则同步 etcd 中全部域名）
+domains:
+  - "example.com"
+  - "api.service.io"
+
+# 轮询间隔（秒）。Agent 每隔此时间对比 etcd 版本号，有差异则拉取并更新
+poll_interval: 300     # 5 分钟

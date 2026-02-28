@@ -1,92 +1,121 @@
-# ssl-manager
+# SSL Manager v2
 
+基于 etcd 的分布式 SSL 证书集中管理系统。
 
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## 架构
 
 ```
-cd existing_repo
-git remote add origin https://git.v8.hk/joyfun/ssl-manager.git
-git branch -M main
-git push -uf origin main
+管理员 / CI
+  │  curl / upload-cert.sh / Web UI
+  ▼
+ssl-server (HTTP API + Web UI)
+  │  写入 etcd（cert/key 分开存储）
+  ▼
+etcd 集群
+  /ssl-manager/certs/{domain}/meta    ← 元数据（版本号、指纹、有效期）
+  /ssl-manager/certs/{domain}/cert    ← 证书 PEM
+  /ssl-manager/certs/{domain}/key     ← 私钥 PEM（可单独设 RBAC）
+  /ssl-manager/certs/{domain}/chain   ← 中间链 PEM（可选）
+  /ssl-manager/status/{agentID}/{domain} ← Agent 心跳状态
+  │
+  │  定时轮询（默认5分钟）
+  ▼
+ssl-agent（每台 Nginx 服务器）
+  1. 读取 /meta → 对比本地版本号+指纹
+  2. 有差异 → 拉取完整 cert/key/chain
+  3. 原子写入文件 + 自动备份
+  4. nginx -t 校验 → nginx -s reload
+  5. 上报状态到 etcd（带60s TTL）
 ```
 
-## Integrate with your tools
+## etcd key 分离存储的好处
 
-- [ ] [Set up project integrations](https://git.v8.hk/joyfun/ssl-manager/-/settings/integrations)
+| key | 内容 | 权限建议 |
+|-----|------|---------|
+| `/meta` | 版本、指纹、有效期（无敏感信息） | 所有人可读 |
+| `/cert` | 证书 PEM（公开信息） | 所有人可读 |
+| `/key` | **私钥 PEM（敏感）** | 仅 Agent 角色可读 |
+| `/chain` | 中间链 PEM | 所有人可读 |
 
-## Collaborate with your team
+轮询时只读 `/meta`（轻量），仅在版本变化时才拉取 `/key`，减少私钥暴露次数。
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+## 同步机制
 
-## Test and Deploy
+Agent 采用**定时轮询**方案（简单稳定）：
+- 每 `poll_interval`（默认5分钟）读取 `/meta` 对比版本号
+- **版本号比对**（O(1) 快速判断）+ **指纹兜底校验**（防止手动修改）
+- 只有发现差异才拉取完整证书，节省 etcd IO
+- Agent 重启后立即执行一次全量同步，不依赖历史状态
 
-Use the built-in continuous integration in GitLab.
+## 部署
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+```bash
+# 1. 编译
+make linux          # 生成 Linux amd64 二进制
 
-***
+# 2. 服务端（一台）
+make install-server
+systemctl start ssl-server
+# Web UI: http://your-server:8080/ui
 
-# Editing this README
+# 3. Agent（每台 Nginx 服务器）
+scp bin/ssl-agent-linux root@web01:/usr/local/bin/ssl-agent
+scp configs/agent.yaml  root@web01:/etc/ssl-manager/agent.yaml
+# 编辑 agent.yaml，填写 domains 和 etcd 地址
+systemctl start ssl-agent
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## 上传证书
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+```bash
+# 脚本上传
+export SSL_MANAGER_URL=http://your-server:8080
+bash scripts/upload-cert.sh example.com cert.pem privkey.pem chain.pem
 
-## Name
-Choose a self-explaining name for your project.
+# curl 直接调用
+curl -X POST http://your-server:8080/api/v1/certs \
+  -H "Content-Type: application/json" \
+  -d '{"domain":"example.com","cert_pem":"...","key_pem":"..."}'
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## API
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | /api/v1/certs | 所有证书元数据（无私钥） |
+| GET | /api/v1/certs/:domain | 单个证书详情 |
+| POST | /api/v1/certs | 创建/更新证书 |
+| DELETE | /api/v1/certs/:domain | 删除证书 |
+| GET | /api/v1/agents | Agent 状态列表 |
+| GET | /api/v1/health | 健康检查 |
+| GET | /ui | Web 管理界面 |
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## 本地文件布局
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```
+/etc/nginx/ssl/
+├── example.com/
+│   ├── cert.pem          # 服务器证书
+│   ├── key.pem           # 私钥（0600）
+│   ├── chain.pem         # 中间链
+│   ├── fullchain.pem     # cert+chain（Nginx 推荐）
+│   ├── .version          # 当前版本号
+│   └── backup/
+│       └── 20250601_120000/
+│           ├── cert.pem
+│           └── key.pem
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## Let's Encrypt 自动续签集成
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+```bash
+# /etc/letsencrypt/renewal-hooks/deploy/ssl-manager.sh
+#!/bin/bash
+for domain in $RENEWED_DOMAINS; do
+  bash /opt/ssl-manager/scripts/upload-cert.sh "$domain" \
+    "/etc/letsencrypt/live/$domain/cert.pem" \
+    "/etc/letsencrypt/live/$domain/privkey.pem" \
+    "/etc/letsencrypt/live/$domain/chain.pem" \
+    "Renewed $(date +%Y-%m-%d)"
+done
+```

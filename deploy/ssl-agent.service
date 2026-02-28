@@ -1,0 +1,13 @@
+[Unit]
+Description=SSL Certificate Manager - Agent
+After=network.target nginx.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/ssl-agent -config /etc/ssl-manager/agent.yaml
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

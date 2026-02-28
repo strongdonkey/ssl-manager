@@ -1,0 +1,25 @@
+listen_addr: ":8080"
+log_level: "info"
+log_file: "/var/log/ssl-manager/server.log"
+
+# 可选：API Bearer Token 鉴权
+# api_token: "your-secret-token"
+
+etcd:
+  endpoints:
+    - "http://127.0.0.1:2379"
+  dial_timeout: 5
+  # TLS（生产必须开启）：
+  # ca_cert:      "/etc/etcd/ssl/ca.pem"
+  # client_cert:  "/etc/etcd/ssl/client.pem"
+  # client_key:   "/etc/etcd/ssl/client-key.pem"
+
+alert:
+  expire_warn_days: 30
+  webhook_url: ""     # 钉钉/企微 Webhook URL
+  enable_email: false
+  smtp_host: "smtp.example.com"
+  smtp_port: 465
+  smtp_user: ""
+  smtp_password: ""
+  alert_emails: []
