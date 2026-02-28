@@ -7,7 +7,7 @@ log_file: "/var/log/ssl-manager/server.log"
 
 etcd:
   endpoints:
-    - "http://127.0.0.1:2379"
+    - "http://192.168.1.135:2379"
   dial_timeout: 5
   # TLS（生产必须开启）：
   # ca_cert:      "/etc/etcd/ssl/ca.pem"

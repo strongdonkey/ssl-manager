@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(CGO_ENABLED=0 go build:*)"
+    ]
+  }
+}

@@ -137,6 +137,12 @@ func newLogger(level, file string) *zap.Logger {
 		cfg.OutputPaths = []string{file, "stdout"}
 		cfg.ErrorOutputPaths = []string{file, "stderr"}
 	}
-	l, _ := cfg.Build()
+	l, err := cfg.Build()
+	if err != nil {
+		// 文件输出失败时回退到控制台输出
+		cfg.OutputPaths = []string{"stdout"}
+		cfg.ErrorOutputPaths = []string{"stderr"}
+		l, _ = cfg.Build()
+	}
 	return l
 }
