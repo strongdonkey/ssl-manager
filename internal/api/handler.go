@@ -24,7 +24,7 @@ func NewHandler(etcd *etcdclient.Client, token string, logger *zap.Logger) *Hand
 
 func (h *Handler) RegisterRoutes(r *gin.Engine) {
 	// 静态文件 Web UI
-	r.Static("/ui", "./web/dist")
+	r.Static("/ui", "./web")
 	r.GET("/", func(c *gin.Context) { c.Redirect(http.StatusFound, "/ui") })
 
 	v1 := r.Group("/api/v1")
