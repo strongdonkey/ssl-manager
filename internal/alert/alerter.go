@@ -53,6 +53,13 @@ func (a *Alerter) CertUpdateFailed(domain, agentID string, err error) {
 func (a *Alerter) Send(msg string) {
 	a.logger.Info("告警", zap.String("msg", msg))
 	if a.cfg.WebhookURL != "" {
+		if a.cfg.Keywords != "" {
+			// 如果配置了关键词，只有消息包含关键词才发送
+			keywords := a.cfg.Keywords
+			if !strings.Contains(msg, keywords) {
+				msg = keywords + " " + msg // 自动添加关键词，确保消息能触发告警
+			}
+		}
 		if err := a.dingTalk(msg); err != nil {
 			a.logger.Error("webhook 发送失败", zap.Error(err))
 		}

@@ -7,7 +7,7 @@ log_file: "logs/server.log"
 
 etcd:
   endpoints:
-    - "http://192.168.1.135:2379"
+    - "http://s1:2379"
   dial_timeout: 5
   # TLS（生产必须开启）：
   # ca_cert:      "/etc/etcd/ssl/ca.pem"
@@ -16,7 +16,8 @@ etcd:
 
 alert:
   expire_warn_days: 30
-  webhook_url: ""     # 钉钉/企微 Webhook URL
+  webhook_url: "https://oapi.dingtalk.com/robot/send?access_token=37ec916ebb399c327fadb5b037bab60589454275c4a9578fee1afee319ed39a4"     # 钉钉/企微 Webhook URL
+  keywords: "服务器"
   enable_email: false
   smtp_host: "smtp.example.com"
   smtp_port: 465

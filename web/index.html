@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SSL Manager</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
   :root {
     --bg:       #0a0c0f;
@@ -22,12 +22,13 @@
     --danger:   #ef4444;
     --ok:       #22c55e;
     --mono:     'JetBrains Mono', 'Space Mono', monospace;
+    --cn:        'Noto Sans SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Source Han Sans CN', sans-serif;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: var(--mono);
+    font-family: 'JetBrains Mono', 'Space Mono', var(--cn), monospace;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -76,18 +77,20 @@
 
   .nav { padding: 12px 0; flex: 1; }
   .nav-section {
-    padding: 6px 16px 4px;
-    font-size: 9px;
-    letter-spacing: 0.15em;
+    padding: 8px 16px 4px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
     color: var(--text3);
-    text-transform: uppercase;
+    font-family: var(--cn);
+    font-weight: 500;
   }
   .nav-item {
     display: flex; align-items: center; gap: 10px;
     padding: 8px 20px;
     cursor: pointer;
     color: var(--text2);
-    font-size: 12px;
+    font-size: 13px;
+    font-family: var(--cn);
     transition: all 0.15s;
     border-left: 2px solid transparent;
     user-select: none;
@@ -99,7 +102,8 @@
   .sidebar-footer {
     padding: 14px 16px;
     border-top: 1px solid var(--border);
-    font-size: 11px;
+    font-size: 12px;
+    font-family: var(--cn);
     color: var(--text3);
   }
   .status-dot {
@@ -130,8 +134,9 @@
     position: sticky; top: 0; z-index: 10;
   }
   .topbar-title {
-    font-size: 15px; font-weight: 700; color: #fff;
-    letter-spacing: 0.02em;
+    font-size: 16px; font-weight: 700; color: #fff;
+    letter-spacing: 0.01em;
+    font-family: var(--cn);
   }
   .topbar-actions { display: flex; gap: 10px; align-items: center; }
 
@@ -161,9 +166,9 @@
   .stat-card.danger::before { background: var(--danger); }
   .stat-card.info::before { background: var(--accent2); }
 
-  .stat-label { font-size: 10px; letter-spacing: 0.12em; color: var(--text3); text-transform: uppercase; margin-bottom: 10px; }
+  .stat-label { font-size: 12px; letter-spacing: 0.04em; color: var(--text3); font-family: var(--cn); margin-bottom: 10px; }
   .stat-value { font-size: 32px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 6px; }
-  .stat-sub { font-size: 11px; color: var(--text2); }
+  .stat-sub { font-size: 12px; color: var(--text2); font-family: var(--cn); }
 
   /* ── TABLE ── */
   .panel {
@@ -180,22 +185,24 @@
     background: var(--bg3);
   }
   .panel-title {
-    font-size: 12px; font-weight: 600; color: #fff;
-    letter-spacing: 0.06em; text-transform: uppercase;
+    font-size: 13px; font-weight: 600; color: #fff;
+    letter-spacing: 0.02em;
+    font-family: var(--cn);
     display: flex; align-items: center; gap: 8px;
   }
   .panel-count {
     background: var(--border2);
     border-radius: 20px;
     padding: 1px 8px;
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text2);
   }
 
   table { width: 100%; border-collapse: collapse; }
   th {
-    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-size: 11px; letter-spacing: 0.04em;
     color: var(--text3);
+    font-family: var(--cn);
     padding: 10px 20px; text-align: left;
     border-bottom: 1px solid var(--border);
     font-weight: 500;
@@ -203,7 +210,7 @@
   td {
     padding: 12px 20px;
     border-bottom: 1px solid var(--border);
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text);
   }
   tr:last-child td { border-bottom: none; }
@@ -224,15 +231,14 @@
 
   /* ── BUTTONS ── */
   .btn {
-    font-family: var(--mono);
-    font-size: 11px; font-weight: 600;
+    font-family: var(--cn);
+    font-size: 12px; font-weight: 600;
     padding: 7px 16px;
     border-radius: 4px;
     border: 1px solid;
     cursor: pointer;
     transition: all 0.15s;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: 0.03em;
     display: inline-flex; align-items: center; gap: 6px;
   }
   .btn-primary {
@@ -250,7 +256,7 @@
     border-color: rgba(239,68,68,0.3);
   }
   .btn-danger:hover { background: rgba(239,68,68,0.1); }
-  .btn-sm { padding: 4px 10px; font-size: 10px; }
+  .btn-sm { padding: 4px 10px; font-size: 11px; }
 
   /* ── PROGRESS BAR ── */
   .expiry-bar {
@@ -283,7 +289,7 @@
     border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
   }
-  .modal-title { font-size: 14px; font-weight: 700; color: #fff; }
+  .modal-title { font-size: 15px; font-weight: 700; color: #fff; font-family: var(--cn); }
   .modal-close { background: none; border: none; color: var(--text2); cursor: pointer; font-size: 18px; line-height: 1; }
   .modal-close:hover { color: #fff; }
   .modal-body { padding: 20px 24px; }
@@ -296,8 +302,9 @@
   /* ── FORM ── */
   .form-group { margin-bottom: 16px; }
   .form-label {
-    display: block; font-size: 10px; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase;
+    display: block; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.04em;
+    font-family: var(--cn);
     color: var(--text3); margin-bottom: 6px;
   }
   .form-required { color: var(--danger); margin-left: 3px; }
@@ -307,7 +314,7 @@
     border: 1px solid var(--border2);
     border-radius: 4px;
     color: var(--text);
-    font-family: var(--mono);
+    font-family: 'JetBrains Mono', var(--cn), monospace;
     font-size: 12px;
     padding: 9px 12px;
     outline: none;
@@ -315,7 +322,7 @@
   }
   .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
   .form-textarea { resize: vertical; min-height: 110px; }
-  .form-hint { font-size: 10px; color: var(--text3); margin-top: 4px; }
+  .form-hint { font-size: 11px; color: var(--text3); margin-top: 4px; font-family: var(--cn); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
   /* ── DOMAIN CELL ── */
@@ -329,7 +336,7 @@
     font-size: 13px; flex-shrink: 0;
   }
   .domain-name { font-weight: 600; color: #fff; font-size: 13px; }
-  .domain-sans { font-size: 10px; color: var(--text3); margin-top: 1px; }
+  .domain-sans { font-size: 11px; color: var(--text3); margin-top: 1px; }
 
   /* ── FINGERPRINT ── */
   .fp { font-size: 10px; color: var(--text3); font-family: var(--mono); letter-spacing: 0.05em; }
@@ -348,14 +355,15 @@
     padding: 18px 20px;
   }
   .agent-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-  .agent-id { font-weight: 700; color: #fff; font-size: 13px; }
+  .agent-id { font-weight: 700; color: #fff; font-size: 13px; font-family: var(--cn); }
   .agent-domains { display: flex; flex-direction: column; gap: 6px; }
   .agent-domain-row {
     display: flex; align-items: center; justify-content: space-between;
     padding: 6px 10px;
     background: var(--bg3);
     border-radius: 4px;
-    font-size: 11px;
+    font-size: 12px;
+    font-family: var(--cn);
   }
 
   /* ── TOAST ── */
@@ -367,7 +375,8 @@
   .toast {
     background: var(--bg2); border: 1px solid var(--border2);
     border-radius: 5px; padding: 11px 16px;
-    font-size: 12px; color: var(--text);
+    font-size: 13px; color: var(--text);
+    font-family: var(--cn);
     box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     animation: toastIn 0.25s ease;
     display: flex; align-items: center; gap: 10px;
@@ -383,7 +392,7 @@
     text-align: center; padding: 60px 20px; color: var(--text3);
   }
   .empty-icon { font-size: 40px; margin-bottom: 16px; opacity: 0.3; }
-  .empty-text { font-size: 13px; }
+  .empty-text { font-size: 13px; font-family: var(--cn); }
 
   /* ── MISC ── */
   .text-ok     { color: var(--ok); }
@@ -400,6 +409,22 @@
   ::-webkit-scrollbar { width: 5px; height: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* ── LANG TOGGLE ── */
+  .lang-toggle {
+    font-family: var(--cn);
+    font-size: 12px; font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--text3);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.15s;
+  }
+  .lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .lang-toggle.active { border-color: var(--accent); color: var(--accent); background: rgba(0,212,170,0.08); }
 </style>
 </head>
 <body>
@@ -418,30 +443,30 @@
     </div>
 
     <nav class="nav">
-      <div class="nav-section">Overview</div>
-      <div class="nav-item active" onclick="showSection('dashboard')">
-        <span class="nav-icon">◈</span> Dashboard
+      <div class="nav-section" data-i18n="nav.overview">概览</div>
+      <div class="nav-item active" data-section="dashboard" onclick="showSection('dashboard')">
+        <span class="nav-icon">◈</span> <span data-i18n="nav.dashboard">仪表盘</span>
       </div>
-      <div class="nav-section">Certificates</div>
-      <div class="nav-item" onclick="showSection('certs')">
-        <span class="nav-icon">⬡</span> All Certs
+      <div class="nav-section" data-i18n="nav.certificates">证书</div>
+      <div class="nav-item" data-section="certs" onclick="showSection('certs')">
+        <span class="nav-icon">⬡</span> <span data-i18n="nav.allCerts">全部证书</span>
       </div>
-      <div class="nav-item" onclick="showSection('expiring')">
-        <span class="nav-icon">◷</span> Expiring Soon
+      <div class="nav-item" data-section="expiring" onclick="showSection('expiring')">
+        <span class="nav-icon">◷</span> <span data-i18n="nav.expiringSoon">即将到期</span>
       </div>
-      <div class="nav-section">Agents</div>
-      <div class="nav-item" onclick="showSection('agents')">
-        <span class="nav-icon">⬢</span> Agent Status
+      <div class="nav-section" data-i18n="nav.agents">代理</div>
+      <div class="nav-item" data-section="agents" onclick="showSection('agents')">
+        <span class="nav-icon">⬢</span> <span data-i18n="nav.agentStatus">代理状态</span>
       </div>
-      <div class="nav-section">Config</div>
-      <div class="nav-item" onclick="showSection('upload')">
-        <span class="nav-icon">↑</span> Upload Cert
+      <div class="nav-section" data-i18n="nav.config">配置</div>
+      <div class="nav-item" data-section="upload" onclick="showSection('upload')">
+        <span class="nav-icon">↑</span> <span data-i18n="nav.uploadCert">上传证书</span>
       </div>
     </nav>
 
     <div class="sidebar-footer">
-      <span class="status-dot"></span>etcd connected
-      <div style="margin-top:4px;font-size:10px;">Last sync: <span id="lastSync">—</span></div>
+      <span class="status-dot"></span><span data-i18n="footer.etcdConnected">etcd 已连接</span>
+      <div style="margin-top:4px;font-size:10px;"><span data-i18n="footer.lastSync">最后同步：</span><span id="lastSync">—</span></div>
     </div>
   </aside>
 
@@ -450,8 +475,12 @@
     <div class="topbar">
       <div class="topbar-title" id="pageTitle">Dashboard</div>
       <div class="topbar-actions">
-        <button class="btn btn-ghost" onclick="loadAll()">↻ Refresh</button>
-        <button class="btn btn-primary" onclick="openUploadModal()">+ Add Cert</button>
+        <div style="display:flex;gap:4px;margin-right:6px;">
+          <button class="lang-toggle" id="lang-zh" onclick="switchLang('zh')">中文</button>
+          <button class="lang-toggle" id="lang-en" onclick="switchLang('en')">EN</button>
+        </div>
+        <button class="btn btn-ghost" onclick="loadAll()" data-i18n="btn.refresh">↻ 刷新</button>
+        <button class="btn btn-primary" onclick="openUploadModal()" data-i18n="btn.addCert">+ 添加证书</button>
       </div>
     </div>
 
@@ -461,30 +490,30 @@
       <section class="section active" id="section-dashboard">
         <div class="stats-grid">
           <div class="stat-card ok">
-            <div class="stat-label">Total Certs</div>
+            <div class="stat-label" data-i18n="stat.total">证书总数</div>
             <div class="stat-value" id="stat-total">—</div>
-            <div class="stat-sub">managed domains</div>
+            <div class="stat-sub" data-i18n="stat.managedDomains">托管域名</div>
           </div>
           <div class="stat-card ok">
-            <div class="stat-label">Valid</div>
+            <div class="stat-label" data-i18n="stat.valid">有效</div>
             <div class="stat-value text-ok" id="stat-valid">—</div>
-            <div class="stat-sub">&gt; 30 days remaining</div>
+            <div class="stat-sub" data-i18n="stat.moreThan30">&gt; 30 天剩余</div>
           </div>
           <div class="stat-card warn">
-            <div class="stat-label">Expiring</div>
+            <div class="stat-label" data-i18n="stat.expiring">即将到期</div>
             <div class="stat-value text-warn" id="stat-expiring">—</div>
-            <div class="stat-sub">within 30 days</div>
+            <div class="stat-sub" data-i18n="stat.within30">30 天内到期</div>
           </div>
           <div class="stat-card danger">
-            <div class="stat-label">Expired</div>
+            <div class="stat-label" data-i18n="stat.expired">已过期</div>
             <div class="stat-value text-danger" id="stat-expired">—</div>
-            <div class="stat-sub">action required</div>
+            <div class="stat-sub" data-i18n="stat.actionRequired">需要处理</div>
           </div>
         </div>
 
         <div class="panel">
           <div class="panel-header">
-            <div class="panel-title">⚡ Recent Certificates <span class="panel-count" id="dash-cert-count">0</span></div>
+            <div class="panel-title">⚡ <span data-i18n="panel.recentCerts">最近证书</span> <span class="panel-count" id="dash-cert-count">0</span></div>
           </div>
           <div id="dashboard-cert-table">
             <div class="empty"><div class="empty-icon">⬡</div><div class="empty-text">Loading...</div></div>
@@ -493,7 +522,7 @@
 
         <div class="panel">
           <div class="panel-header">
-            <div class="panel-title">⬢ Agent Nodes <span class="panel-count" id="dash-agent-count">0</span></div>
+            <div class="panel-title">⬢ <span data-i18n="panel.agentNodes">代理节点</span> <span class="panel-count" id="dash-agent-count">0</span></div>
           </div>
           <div id="dashboard-agent-table">
             <div class="empty"><div class="empty-icon">⬢</div><div class="empty-text">Loading...</div></div>
@@ -505,8 +534,8 @@
       <section class="section" id="section-certs">
         <div class="panel">
           <div class="panel-header">
-            <div class="panel-title">⬡ Certificate Registry <span class="panel-count" id="all-cert-count">0</span></div>
-            <input class="form-input" style="width:220px;padding:5px 10px;" placeholder="Filter domain..." id="certFilter" oninput="renderCerts()">
+            <div class="panel-title">⬡ <span data-i18n="panel.certRegistry">证书列表</span> <span class="panel-count" id="all-cert-count">0</span></div>
+            <input class="form-input" style="width:220px;padding:5px 10px;" data-i18n-placeholder="placeholder.filterDomain" placeholder="筛选域名..." id="certFilter" oninput="renderCerts()">
           </div>
           <div id="cert-table-container">
             <div class="empty"><div class="empty-icon">⬡</div><div class="empty-text">No certificates</div></div>
@@ -518,7 +547,7 @@
       <section class="section" id="section-expiring">
         <div class="panel">
           <div class="panel-header">
-            <div class="panel-title">◷ Expiring Within 30 Days</div>
+            <div class="panel-title">◷ <span data-i18n="panel.expiringWithin30">30 天内到期</span></div>
           </div>
           <div id="expiring-table">
             <div class="empty"><div class="empty-icon">✓</div><div class="empty-text">All certs healthy</div></div>
@@ -537,31 +566,31 @@
       <section class="section" id="section-upload">
         <div class="panel" style="max-width:700px;">
           <div class="panel-header">
-            <div class="panel-title">↑ Upload Certificate</div>
+            <div class="panel-title">↑ <span data-i18n="panel.uploadCert">上传证书</span></div>
           </div>
           <div class="modal-body" style="padding:24px;">
             <div class="form-group">
-              <label class="form-label">Domain<span class="form-required">*</span></label>
-              <input class="form-input" id="up-domain" placeholder="example.com">
+              <label class="form-label" data-i18n="form.domain">域名<span class="form-required">*</span></label>
+              <input class="form-input" id="up-domain" data-i18n-placeholder="placeholder.domainExample" placeholder="example.com">
             </div>
             <div class="form-group">
-              <label class="form-label">Certificate PEM<span class="form-required">*</span></label>
+              <label class="form-label" data-i18n="form.certPem">证书 PEM<span class="form-required">*</span></label>
               <textarea class="form-textarea" id="up-cert" placeholder="-----BEGIN CERTIFICATE-----&#10;...&#10;-----END CERTIFICATE-----" style="min-height:130px;"></textarea>
             </div>
             <div class="form-group">
-              <label class="form-label">Private Key PEM<span class="form-required">*</span></label>
+              <label class="form-label" data-i18n="form.keyPem">私鑰 PEM<span class="form-required">*</span></label>
               <textarea class="form-textarea" id="up-key" placeholder="-----BEGIN PRIVATE KEY-----&#10;...&#10;-----END PRIVATE KEY-----" style="min-height:130px;"></textarea>
             </div>
             <div class="form-group">
-              <label class="form-label">Certificate Chain PEM <span style="color:var(--text3);font-size:9px;text-transform:none;">(optional)</span></label>
+              <label class="form-label" data-i18n="form.chainPem">证书链 PEM <span style="color:var(--text3);font-size:9px;text-transform:none;" data-i18n="form.optional">（可选）</span></label>
               <textarea class="form-textarea" id="up-chain" placeholder="-----BEGIN CERTIFICATE-----&#10;(intermediate CA)&#10;-----END CERTIFICATE-----" style="min-height:80px;"></textarea>
             </div>
             <div class="form-group">
-              <label class="form-label">Description</label>
-              <input class="form-input" id="up-desc" placeholder="e.g. Let's Encrypt 2025">
+              <label class="form-label" data-i18n="form.description">描述</label>
+              <input class="form-input" id="up-desc" data-i18n-placeholder="placeholder.descExample" placeholder="例如：Let's Encrypt 2025">
             </div>
-            <button class="btn btn-primary" onclick="submitUpload()" style="width:100%;justify-content:center;padding:10px;">
-              ↑ Upload Certificate
+            <button class="btn btn-primary" onclick="submitUpload()" style="width:100%;justify-content:center;padding:10px;" data-i18n="btn.uploadCert">
+              ↑ 上传证书
             </button>
           </div>
         </div>
@@ -575,37 +604,37 @@
 <div class="overlay" id="uploadModal">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">+ Add Certificate</div>
-      <button class="modal-close" onclick="closeModal('uploadModal')">✕</button>
+      <div class="modal-title" data-i18n="modal.addCert">+ 添加证书</div>
+      <button class="modal-close" onclick="closeModal('uploadModal')">&#10005;</button>
     </div>
     <div class="modal-body">
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Domain<span class="form-required">*</span></label>
-          <input class="form-input" id="m-domain" placeholder="example.com">
+          <label class="form-label" data-i18n="form.domain">域名<span class="form-required">*</span></label>
+          <input class="form-input" id="m-domain" data-i18n-placeholder="placeholder.domainExample" placeholder="example.com">
         </div>
         <div class="form-group">
-          <label class="form-label">Description</label>
-          <input class="form-input" id="m-desc" placeholder="optional note">
+          <label class="form-label" data-i18n="form.description">描述</label>
+          <input class="form-input" id="m-desc" data-i18n-placeholder="placeholder.optionalNote" placeholder="可选备注">
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">Certificate PEM<span class="form-required">*</span></label>
+        <label class="form-label" data-i18n="form.certPem">证书 PEM<span class="form-required">*</span></label>
         <textarea class="form-textarea" id="m-cert" placeholder="-----BEGIN CERTIFICATE-----"></textarea>
-        <div class="form-hint">Server certificate (not chain)</div>
+        <div class="form-hint" data-i18n="form.certHint">服务器证书（非链）</div>
       </div>
       <div class="form-group">
-        <label class="form-label">Private Key PEM<span class="form-required">*</span></label>
+        <label class="form-label" data-i18n="form.keyPem">私鑰 PEM<span class="form-required">*</span></label>
         <textarea class="form-textarea" id="m-key" placeholder="-----BEGIN PRIVATE KEY-----"></textarea>
       </div>
       <div class="form-group">
-        <label class="form-label">Chain PEM <span style="color:var(--text3);font-size:9px;text-transform:none;">(optional)</span></label>
+        <label class="form-label" data-i18n="form.chainPem">证书链 PEM <span style="color:var(--text3);font-size:9px;text-transform:none;" data-i18n="form.optional">（可选）</span></label>
         <textarea class="form-textarea" id="m-chain" placeholder="-----BEGIN CERTIFICATE-----&#10;(intermediate)" style="min-height:80px;"></textarea>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('uploadModal')">Cancel</button>
-      <button class="btn btn-primary" onclick="submitModal()">Upload</button>
+      <button class="btn btn-ghost" onclick="closeModal('uploadModal')" data-i18n="btn.cancel">取消</button>
+      <button class="btn btn-primary" onclick="submitModal()" data-i18n="btn.upload">上传</button>
     </div>
   </div>
 </div>
@@ -614,13 +643,13 @@
 <div class="overlay" id="detailModal">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="detail-title">Certificate Details</div>
+      <div class="modal-title" id="detail-title" data-i18n="modal.certDetails">证书详情</div>
       <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
     </div>
     <div class="modal-body" id="detail-body"></div>
     <div class="modal-footer">
-      <button class="btn btn-danger btn-sm" id="detail-delete-btn">Delete</button>
-      <button class="btn btn-ghost" onclick="closeModal('detailModal')">Close</button>
+      <button class="btn btn-danger btn-sm" id="detail-delete-btn" data-i18n="btn.delete">删除</button>
+      <button class="btn btn-ghost" onclick="closeModal('detailModal')" data-i18n="btn.close">关闭</button>
     </div>
   </div>
 </div>
@@ -634,6 +663,142 @@
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const API = window.API_BASE || '';
 const TOKEN = window.API_TOKEN || '';
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  i18n
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const TRANSLATIONS = {
+  zh: {
+    'nav.overview': '概览', 'nav.dashboard': '仪表盘', 'nav.certificates': '证书',
+    'nav.allCerts': '全部证书', 'nav.expiringSoon': '即将到期', 'nav.agents': '代理',
+    'nav.agentStatus': '代理状态', 'nav.config': '配置', 'nav.uploadCert': '上传证书',
+    'footer.etcdConnected': 'etcd 已连接', 'footer.lastSync': '最后同步：',
+    'btn.refresh': '↻ 刷新', 'btn.addCert': '+ 添加证书', 'btn.cancel': '取消',
+    'btn.upload': '上传', 'btn.delete': '删除', 'btn.close': '关闭',
+    'btn.uploadCert': '↑ 上传证书', 'btn.detail': '详情',
+    'stat.total': '证书总数', 'stat.valid': '有效', 'stat.expiring': '即将到期',
+    'stat.expired': '已过期', 'stat.managedDomains': '托管域名',
+    'stat.moreThan30': '> 30 天剩余', 'stat.within30': '30 天内到期',
+    'stat.actionRequired': '需要处理',
+    'panel.recentCerts': '最近证书', 'panel.agentNodes': '代理节点',
+    'panel.certRegistry': '证书列表', 'panel.expiringWithin30': '30 天内到期',
+    'panel.uploadCert': '上传证书',
+    'placeholder.filterDomain': '筛选域名...', 'placeholder.domainExample': 'example.com',
+    'placeholder.descExample': '例如：Let\'s Encrypt 2025', 'placeholder.optionalNote': '可选备注',
+    'form.domain': '域名', 'form.certPem': '证书 PEM', 'form.keyPem': '私钥 PEM',
+    'form.chainPem': '证书链 PEM', 'form.description': '描述',
+    'form.optional': '（可选）', 'form.certHint': '服务器证书（非链）',
+    'modal.addCert': '+ 添加证书', 'modal.certDetails': '证书详情',
+    'tbl.domain': '域名', 'tbl.expiry': '到期', 'tbl.version': '版本',
+    'tbl.fingerprint': '指纹', 'tbl.updated': '更新', 'tbl.agent': '代理',
+    'tbl.nginx': 'Nginx', 'tbl.lastSync': '最后同步', 'tbl.status': '状态',
+    'msg.noCerts': '暂无证书', 'msg.noAgents': '无代理',
+    'msg.noAgentsOnline': '无在线代理', 'msg.allHealthy': '所有证书均正常（> 30 天）',
+    'msg.loadFailed': '加载失败', 'msg.certNotFound': '证书不存在',
+    'msg.confirmDelete': '确认删除证书', 'msg.certDeleted': '已删除',
+    'msg.deleteFailed': '删除失败', 'msg.fillRequired': '请填写必填字段',
+    'msg.uploadSuccess': '上传成功', 'msg.uploadFailed': '上传失败',
+    'msg.requestFailed': '请求失败', 'msg.demoMode': '当前为演示模式（无法连接 API）',
+    'msg.loading': '加载中...', 'msg.lastSyncLabel': '最后同步：',
+    'sec.dashboard': '仪表盘', 'sec.certs': '全部证书', 'sec.expiring': '即将到期',
+    'sec.agents': '代理状态', 'sec.upload': '上传证书',
+    'detail.domain': '域名', 'detail.version': '版本', 'detail.notBefore': '生效时间',
+    'detail.notAfter': '过期时间', 'detail.created': '创建时间', 'detail.updated': '更新时间',
+    'detail.fingerprint': 'SHA256 指纹', 'detail.sanDomains': 'SAN 域名',
+    'detail.description': '描述', 'detail.none': '无',
+    'badge.domains': '个域名', 'badge.lastSync': '最后同步：',
+  },
+  en: {
+    'nav.overview': 'Overview', 'nav.dashboard': 'Dashboard', 'nav.certificates': 'Certificates',
+    'nav.allCerts': 'All Certs', 'nav.expiringSoon': 'Expiring Soon', 'nav.agents': 'Agents',
+    'nav.agentStatus': 'Agent Status', 'nav.config': 'Config', 'nav.uploadCert': 'Upload Cert',
+    'footer.etcdConnected': 'etcd connected', 'footer.lastSync': 'Last sync: ',
+    'btn.refresh': '↻ Refresh', 'btn.addCert': '+ Add Cert', 'btn.cancel': 'Cancel',
+    'btn.upload': 'Upload', 'btn.delete': 'Delete', 'btn.close': 'Close',
+    'btn.uploadCert': '↑ Upload Certificate', 'btn.detail': 'Detail',
+    'stat.total': 'Total Certs', 'stat.valid': 'Valid', 'stat.expiring': 'Expiring',
+    'stat.expired': 'Expired', 'stat.managedDomains': 'managed domains',
+    'stat.moreThan30': '> 30 days remaining', 'stat.within30': 'within 30 days',
+    'stat.actionRequired': 'action required',
+    'panel.recentCerts': 'Recent Certificates', 'panel.agentNodes': 'Agent Nodes',
+    'panel.certRegistry': 'Certificate Registry', 'panel.expiringWithin30': 'Expiring Within 30 Days',
+    'panel.uploadCert': 'Upload Certificate',
+    'placeholder.filterDomain': 'Filter domain...', 'placeholder.domainExample': 'example.com',
+    'placeholder.descExample': 'e.g. Let\'s Encrypt 2025', 'placeholder.optionalNote': 'optional note',
+    'form.domain': 'Domain', 'form.certPem': 'Certificate PEM', 'form.keyPem': 'Private Key PEM',
+    'form.chainPem': 'Chain PEM', 'form.description': 'Description',
+    'form.optional': '(optional)', 'form.certHint': 'Server certificate (not chain)',
+    'modal.addCert': '+ Add Certificate', 'modal.certDetails': 'Certificate Details',
+    'tbl.domain': 'Domain', 'tbl.expiry': 'Expiry', 'tbl.version': 'Version',
+    'tbl.fingerprint': 'Fingerprint', 'tbl.updated': 'Updated', 'tbl.agent': 'Agent',
+    'tbl.nginx': 'Nginx', 'tbl.lastSync': 'Last Sync', 'tbl.status': 'Status',
+    'msg.noCerts': 'No certificates', 'msg.noAgents': 'No agents',
+    'msg.noAgentsOnline': 'No agents online', 'msg.allHealthy': 'All certs healthy (>30 days)',
+    'msg.loadFailed': 'Load failed', 'msg.certNotFound': 'Certificate not found',
+    'msg.confirmDelete': 'Confirm delete certificate', 'msg.certDeleted': 'deleted',
+    'msg.deleteFailed': 'Delete failed', 'msg.fillRequired': 'Please fill required fields',
+    'msg.uploadSuccess': 'uploaded successfully', 'msg.uploadFailed': 'Upload failed',
+    'msg.requestFailed': 'Request failed', 'msg.demoMode': 'Demo mode (API unavailable)',
+    'msg.loading': 'Loading...', 'msg.lastSyncLabel': 'Last sync: ',
+    'sec.dashboard': 'Dashboard', 'sec.certs': 'All Certificates', 'sec.expiring': 'Expiring Soon',
+    'sec.agents': 'Agent Status', 'sec.upload': 'Upload Certificate',
+    'detail.domain': 'Domain', 'detail.version': 'Version', 'detail.notBefore': 'Not Before',
+    'detail.notAfter': 'Not After', 'detail.created': 'Created', 'detail.updated': 'Updated',
+    'detail.fingerprint': 'SHA256 Fingerprint', 'detail.sanDomains': 'SAN Domains',
+    'detail.description': 'Description', 'detail.none': 'None',
+    'badge.domains': ' domain', 'badge.lastSync': 'Last sync: ',
+  }
+};
+
+// Cookie helpers
+function setCookie(name, value, days) {
+  const d = new Date(); d.setTime(d.getTime() + days * 86400000);
+  document.cookie = `${name}=${value};expires=${d.toUTCString()};path=/`;
+}
+function getCookie(name) {
+  const v = document.cookie.split('; ').find(r => r.startsWith(name + '='));
+  return v ? v.split('=')[1] : null;
+}
+
+let currentLang = getCookie('ssl_manager_lang') || 'zh';
+
+function t(key) {
+  return (TRANSLATIONS[currentLang] || TRANSLATIONS.zh)[key] || key;
+}
+
+function applyLang() {
+  document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+  // Update data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = t(key);
+    // Preserve child elements (like form-required span)
+    const req = el.querySelector('.form-required');
+    if (req) {
+      el.childNodes.forEach(n => { if (n.nodeType === Node.TEXT_NODE) n.textContent = val; });
+    } else {
+      el.textContent = val;
+    }
+  });
+  // Update data-i18n-placeholder elements
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
+  });
+  // Update lang toggle buttons
+  document.getElementById('lang-zh')?.classList.toggle('active', currentLang === 'zh');
+  document.getElementById('lang-en')?.classList.toggle('active', currentLang === 'en');
+  // Update topbar title
+  document.getElementById('pageTitle').textContent = sectionTitles()[currentSection] || currentSection;
+  // Re-render dynamic content if data loaded
+  if (allCerts.length || allAgents.length) renderAll();
+}
+
+function switchLang(lang) {
+  if (lang === currentLang) return;
+  currentLang = lang;
+  setCookie('ssl_manager_lang', lang, 365);
+  applyLang();
+}
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //  State
@@ -663,7 +828,7 @@ async function loadAll() {
     document.getElementById('lastSync').textContent = new Date().toLocaleTimeString();
     renderAll();
   } catch(e) {
-    toast('error', '加载失败: ' + e.message);
+    toast('error', t('msg.loadFailed') + ': ' + e.message);
   }
 }
 
@@ -688,7 +853,8 @@ function expiryBar(days) {
 }
 
 function fmtDate(d) {
-  return d ? new Date(d).toLocaleDateString('zh-CN', { year:'numeric', month:'2-digit', day:'2-digit' }) : '—';
+  const locale = currentLang === 'zh' ? 'zh-CN' : 'en-US';
+  return d ? new Date(d).toLocaleDateString(locale, { year:'numeric', month:'2-digit', day:'2-digit' }) : '—';
 }
 
 function fpShort(fp) {
@@ -697,14 +863,14 @@ function fpShort(fp) {
 }
 
 function certTableHTML(certs) {
-  if (!certs.length) return `<div class="empty"><div class="empty-icon">⬡</div><div class="empty-text">No certificates</div></div>`;
+  if (!certs.length) return `<div class="empty"><div class="empty-icon">⬡</div><div class="empty-text">${t('msg.noCerts')}</div></div>`;
   return `<table>
     <thead><tr>
-      <th>Domain</th>
-      <th>Expiry</th>
-      <th>Version</th>
-      <th>Fingerprint</th>
-      <th>Updated</th>
+      <th>${t('tbl.domain')}</th>
+      <th>${t('tbl.expiry')}</th>
+      <th>${t('tbl.version')}</th>
+      <th>${t('tbl.fingerprint')}</th>
+      <th>${t('tbl.updated')}</th>
       <th></th>
     </tr></thead>
     <tbody>
@@ -730,7 +896,7 @@ function certTableHTML(certs) {
         <td class="text-muted">${fmtDate(c.updated_at)}</td>
         <td>
           <div class="flex-gap">
-            <button class="btn btn-ghost btn-sm" onclick="showDetail('${c.domain}')">Detail</button>
+            <button class="btn btn-ghost btn-sm" onclick="showDetail('${c.domain}')">${t('btn.detail')}</button>
           </div>
         </td>
       </tr>`;
@@ -740,15 +906,16 @@ function certTableHTML(certs) {
 }
 
 function agentTableHTML(agents) {
-  if (!agents || !agents.length) return `<div class="empty"><div class="empty-icon">⬢</div><div class="empty-text">No agents</div></div>`;
+  if (!agents || !agents.length) return `<div class="empty"><div class="empty-icon">⬢</div><div class="empty-text">${t('msg.noAgents')}</div></div>`;
   // Group by agent_id
   const grouped = {};
   for (const a of agents) {
     if (!grouped[a.agent_id]) grouped[a.agent_id] = [];
     grouped[a.agent_id].push(a);
   }
+  const locale = currentLang === 'zh' ? 'zh-CN' : 'en-US';
   return `<table>
-    <thead><tr><th>Agent</th><th>Domain</th><th>Version</th><th>Nginx</th><th>Last Sync</th><th>Status</th></tr></thead>
+    <thead><tr><th>${t('tbl.agent')}</th><th>${t('tbl.domain')}</th><th>${t('tbl.version')}</th><th>${t('tbl.nginx')}</th><th>${t('tbl.lastSync')}</th><th>${t('tbl.status')}</th></tr></thead>
     <tbody>
     ${agents.map(a => `<tr>
       <td><span style="color:#fff;font-weight:600;">${a.agent_id}</span></td>
@@ -757,7 +924,7 @@ function agentTableHTML(agents) {
       <td>${a.nginx_status === 'running'
         ? '<span class="badge ok">running</span>'
         : `<span class="badge warn">${a.nginx_status || 'unknown'}</span>`}</td>
-      <td class="text-muted">${a.last_sync_at ? new Date(a.last_sync_at).toLocaleString('zh-CN') : '—'}</td>
+      <td class="text-muted">${a.last_sync_at ? new Date(a.last_sync_at).toLocaleString(locale) : '—'}</td>
       <td>${a.sync_ok
         ? '<span class="badge ok">✓ OK</span>'
         : `<span class="badge danger" title="${a.error || ''}">✗ Fail</span>`}</td>
@@ -807,13 +974,13 @@ function renderExpiring() {
   const exp = allCerts.filter(c => daysLeft(c.not_after) <= 30).sort((a,b) => daysLeft(a.not_after) - daysLeft(b.not_after));
   document.getElementById('expiring-table').innerHTML = exp.length
     ? certTableHTML(exp)
-    : `<div class="empty"><div class="empty-icon">✓</div><div class="empty-text">All certificates are healthy (&gt;30 days)</div></div>`;
+    : `<div class="empty"><div class="empty-icon">✓</div><div class="empty-text">${t('msg.allHealthy')}</div></div>`;
 }
 
 function renderAgents() {
   const grid = document.getElementById('agents-grid');
   if (!allAgents.length) {
-    grid.innerHTML = `<div class="empty"><div class="empty-icon">⬢</div><div class="empty-text">No agents online</div></div>`;
+    grid.innerHTML = `<div class="empty"><div class="empty-icon">⬢</div><div class="empty-text">${t('msg.noAgentsOnline')}</div></div>`;
     return;
   }
   const grouped = {};
@@ -821,11 +988,16 @@ function renderAgents() {
     if (!grouped[a.agent_id]) grouped[a.agent_id] = [];
     grouped[a.agent_id].push(a);
   }
-  grid.innerHTML = Object.entries(grouped).map(([id, domains]) => `
+  const locale = currentLang === 'zh' ? 'zh-CN' : 'en-US';
+  grid.innerHTML = Object.entries(grouped).map(([id, domains]) => {
+    const domainLabel = currentLang === 'zh'
+      ? `${domains.length} ${t('badge.domains')}`
+      : `${domains.length} ${t('badge.domains')}${domains.length > 1 ? 's' : ''}`;
+    return `
     <div class="agent-card">
       <div class="agent-header">
         <div class="agent-id">⬢ ${id}</div>
-        <span class="badge ok">${domains.length} domain${domains.length > 1 ? 's' : ''}</span>
+        <span class="badge ok">${domainLabel}</span>
       </div>
       <div class="agent-domains">
         ${domains.map(d => `
@@ -840,9 +1012,10 @@ function renderAgents() {
           </div>`).join('')}
       </div>
       <div style="margin-top:12px;font-size:10px;color:var(--text3);">
-        Last sync: ${domains[0]?.last_sync_at ? new Date(domains[0].last_sync_at).toLocaleString('zh-CN') : '—'}
+        ${t('badge.lastSync')}${domains[0]?.last_sync_at ? new Date(domains[0].last_sync_at).toLocaleString(locale) : '—'}
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -851,50 +1024,50 @@ function renderAgents() {
 async function showDetail(domain) {
   const res = await apiFetch('/api/v1/certs/' + encodeURIComponent(domain));
   const c = res.data;
-  if (!c) return toast('error', '证书不存在');
+  if (!c) return toast('error', t('msg.certNotFound'));
 
   const days = daysLeft(c.not_after);
   document.getElementById('detail-title').textContent = '🔒 ' + c.domain;
   document.getElementById('detail-body').innerHTML = `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
       <div>
-        <div class="form-label">Domain</div>
+        <div class="form-label">${t('detail.domain')}</div>
         <div style="color:#fff;font-weight:600;">${c.domain}</div>
       </div>
       <div>
-        <div class="form-label">Version</div>
+        <div class="form-label">${t('detail.version')}</div>
         <div style="color:var(--accent);font-weight:600;">v${c.version}</div>
       </div>
       <div>
-        <div class="form-label">Not Before</div>
+        <div class="form-label">${t('detail.notBefore')}</div>
         <div class="text-muted">${fmtDate(c.not_before)}</div>
       </div>
       <div>
-        <div class="form-label">Not After</div>
+        <div class="form-label">${t('detail.notAfter')}</div>
         <div>${expiryBadge(days)} ${fmtDate(c.not_after)}</div>
       </div>
       <div>
-        <div class="form-label">Created</div>
+        <div class="form-label">${t('detail.created')}</div>
         <div class="text-muted">${fmtDate(c.created_at)}</div>
       </div>
       <div>
-        <div class="form-label">Updated</div>
+        <div class="form-label">${t('detail.updated')}</div>
         <div class="text-muted">${fmtDate(c.updated_at)}</div>
       </div>
     </div>
     <div class="form-group">
-      <div class="form-label">SHA256 Fingerprint</div>
+      <div class="form-label">${t('detail.fingerprint')}</div>
       <div class="fp" style="word-break:break-all;font-size:11px;padding:8px 10px;background:var(--bg3);border-radius:4px;">
         <span>${c.fingerprint || '—'}</span>
       </div>
     </div>
     <div class="form-group">
-      <div class="form-label">SAN Domains</div>
+      <div class="form-label">${t('detail.sanDomains')}</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;">
-        ${(c.san_domains || []).map(d => `<span style="padding:2px 8px;background:var(--bg3);border:1px solid var(--border2);border-radius:3px;font-size:11px;">${d}</span>`).join('') || '<span class="text-muted">None</span>'}
+        ${(c.san_domains || []).map(d => `<span style="padding:2px 8px;background:var(--bg3);border:1px solid var(--border2);border-radius:3px;font-size:11px;">${d}</span>`).join('') || `<span class="text-muted">${t('detail.none')}</span>`}
       </div>
     </div>
-    ${c.description ? `<div class="form-group"><div class="form-label">Description</div><div class="text-muted">${c.description}</div></div>` : ''}
+    ${c.description ? `<div class="form-group"><div class="form-label">${t('detail.description')}</div><div class="text-muted">${c.description}</div></div>` : ''}
   `;
 
   document.getElementById('detail-delete-btn').onclick = () => deleteCert(domain);
@@ -902,14 +1075,14 @@ async function showDetail(domain) {
 }
 
 async function deleteCert(domain) {
-  if (!confirm(`确认删除证书：${domain}？`)) return;
+  if (!confirm(`${t('msg.confirmDelete')}\uff1a${domain}\uff1f`)) return;
   const res = await apiFetch('/api/v1/certs/' + encodeURIComponent(domain), { method: 'DELETE' });
   if (res.code === 0) {
-    toast('ok', `证书 ${domain} 已删除`);
+    toast('ok', `✓ ${domain} ${t('msg.certDeleted')}`);
     closeModal('detailModal');
     loadAll();
   } else {
-    toast('error', '删除失败: ' + res.message);
+    toast('error', t('msg.deleteFailed') + ': ' + res.message);
   }
 }
 
@@ -933,7 +1106,7 @@ async function submitModal() {
     description: document.getElementById('m-desc').value.trim(),
   };
   if (!body.domain || !body.cert_pem || !body.key_pem) {
-    toast('warn', '请填写必填字段');
+    toast('warn', t('msg.fillRequired'));
     return;
   }
   await doUpload(body, 'uploadModal');
@@ -948,7 +1121,7 @@ async function submitUpload() {
     description: document.getElementById('up-desc').value.trim(),
   };
   if (!body.domain || !body.cert_pem || !body.key_pem) {
-    toast('warn', '请填写必填字段');
+    toast('warn', t('msg.fillRequired'));
     return;
   }
   await doUpload(body, null);
@@ -958,42 +1131,36 @@ async function doUpload(body, modalId) {
   try {
     const res = await apiFetch('/api/v1/certs', { method: 'POST', body: JSON.stringify(body) });
     if (res.code === 0) {
-      toast('ok', `✓ 证书 ${body.domain} 上传成功 (v${res.data.version})`);
+      toast('ok', `✓ ${body.domain} ${t('msg.uploadSuccess')} (v${res.data.version})`);
       if (modalId) closeModal(modalId);
       loadAll();
     } else {
-      toast('error', '上传失败: ' + res.message);
+      toast('error', t('msg.uploadFailed') + ': ' + res.message);
     }
   } catch(e) {
-    toast('error', '请求失败: ' + e.message);
+    toast('error', t('msg.requestFailed') + ': ' + e.message);
   }
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //  Navigation
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const sectionTitles = {
-  dashboard: 'Dashboard',
-  certs: 'All Certificates',
-  expiring: 'Expiring Soon',
-  agents: 'Agent Status',
-  upload: 'Upload Certificate',
-};
+const sectionTitles = () => ({
+  dashboard: t('sec.dashboard'),
+  certs: t('sec.certs'),
+  expiring: t('sec.expiring'),
+  agents: t('sec.agents'),
+  upload: t('sec.upload'),
+});
 
 function showSection(name) {
   currentSection = name;
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById('section-' + name)?.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => {
-    if (n.textContent.toLowerCase().includes(name === 'dashboard' ? 'dashboard' :
-        name === 'certs' ? 'all' :
-        name === 'expiring' ? 'expiring' :
-        name === 'agents' ? 'agent' : 'upload')) {
-      n.classList.add('active');
-    }
-  });
-  document.getElementById('pageTitle').textContent = sectionTitles[name] || name;
+  const target = document.querySelector(`.nav-item[data-section="${name}"]`);
+  if (target) target.classList.add('active');
+  document.getElementById('pageTitle').textContent = sectionTitles()[name] || name;
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1038,12 +1205,13 @@ function loadDemo() {
     { agent_id: 'web-prod-02', domain: 'example.com', version: 4, fingerprint: 'old_fingerprint_here', last_sync_at: new Date(now - 3600000*6).toISOString(), nginx_status: 'running', sync_ok: false, error: 'version mismatch, pending reload' },
     { agent_id: 'legacy-server', domain: 'legacy.corp.net', version: 1, fingerprint: 'c3d4e5f6789012345678901234567890abcdef12', last_sync_at: new Date(now - 86400000*5).toISOString(), nginx_status: 'unknown', sync_ok: false, error: 'connection refused' },
   ];
-  document.getElementById('lastSync').textContent = 'demo mode';
+  document.getElementById('lastSync').textContent = 'demo';
   renderAll();
-  toast('warn', '当前为演示模式（无法连接 API）');
+  toast('warn', t('msg.demoMode'));
 }
 
 async function init() {
+  applyLang();
   try {
     const res = await apiFetch('/api/v1/health');
     if (res.code === 0) {

@@ -16,11 +16,12 @@ import (
 )
 
 // etcd key 布局：
-//   /ssl-manager/certs/{domain}/meta   → CertMeta JSON
-//   /ssl-manager/certs/{domain}/cert   → cert PEM 字符串
-//   /ssl-manager/certs/{domain}/key    → key  PEM 字符串（建议单独设 etcd RBAC）
-//   /ssl-manager/certs/{domain}/chain  → chain PEM 字符串（可选）
-//   /ssl-manager/status/{agentID}/{domain} → CertStatus JSON
+//
+//	/ssl-manager/certs/{domain}/meta   → CertMeta JSON
+//	/ssl-manager/certs/{domain}/cert   → cert PEM 字符串
+//	/ssl-manager/certs/{domain}/key    → key  PEM 字符串（建议单独设 etcd RBAC）
+//	/ssl-manager/certs/{domain}/chain  → chain PEM 字符串（可选）
+//	/ssl-manager/status/{agentID}/{domain} → CertStatus JSON
 const (
 	CertPrefix   = "/ssl-manager/certs/"
 	StatusPrefix = "/ssl-manager/status/"
@@ -205,13 +206,16 @@ func (c *Client) GetMetaVersion(ctx context.Context, domain string) (int64, stri
 //  Agent 状态上报
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-func (c *Client) PutStatus(ctx context.Context, status *model.CertStatus) error {
+func (c *Client) PutStatus(ctx context.Context, status *model.CertStatus, ttl int64) error {
 	data, err := json.Marshal(status)
 	if err != nil {
 		return err
 	}
-	// 带 TTL 的 Lease：agent 停止后 60s 自动过期
-	lease, err := c.cli.Grant(ctx, 120)
+	if ttl <= 0 {
+		ttl = 900
+	}
+	// 带 TTL 的 Lease：agent 停止后自动过期，TTL 应大于 poll_interval
+	lease, err := c.cli.Grant(ctx, ttl)
 	if err != nil {
 		return err
 	}

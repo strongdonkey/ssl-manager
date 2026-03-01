@@ -8,7 +8,7 @@ dry_run: false         # true = 只打印不执行，用于测试
 
 etcd:
   endpoints:
-    - "http://etcd.internal:2379"
+    - "http://s1:2379"
   dial_timeout: 5
 
 # 默认 "nginx -s reload"，也可改为 "systemctl reload nginx"

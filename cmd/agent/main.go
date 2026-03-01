@@ -136,6 +136,7 @@ func (a *Agent) syncAll(ctx context.Context) {
 		}
 		if !needUpdate {
 			a.logger.Debug("证书无需更新", zap.String("domain", domain), zap.Int64("version", remoteVer))
+			a.reportStatus(domain, remoteVer, remoteFP, nil) // 心跳上报，保持 agent 在线
 			continue
 		}
 
@@ -186,9 +187,13 @@ func (a *Agent) reportStatus(domain string, version int64, fp string, applyErr e
 		status.Error = applyErr.Error()
 	}
 
+	ttl := int64(a.cfg.PollInterval) * 3
+	if ttl <= 0 {
+		ttl = 900
+	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	if err := a.etcd.PutStatus(ctx, status); err != nil {
+	if err := a.etcd.PutStatus(ctx, status, ttl); err != nil {
 		a.logger.Warn("上报状态失败", zap.Error(err))
 	}
 }

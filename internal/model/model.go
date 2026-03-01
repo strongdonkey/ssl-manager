@@ -16,12 +16,12 @@ import "time"
 // CertMeta 证书元数据（不含证书内容，存于 /meta key）
 type CertMeta struct {
 	Domain      string    `json:"domain"`
-	Version     int64     `json:"version"`      // 每次更新递增，Agent 用此判断是否需要拉取
-	Fingerprint string    `json:"fingerprint"`  // SHA256 指纹，Agent 用于本地对比
+	Version     int64     `json:"version"`     // 每次更新递增，Agent 用此判断是否需要拉取
+	Fingerprint string    `json:"fingerprint"` // SHA256 指纹，Agent 用于本地对比
 	NotBefore   time.Time `json:"not_before"`
 	NotAfter    time.Time `json:"not_after"`
 	SANDomains  []string  `json:"san_domains"`
-	HasChain    bool      `json:"has_chain"`    // 是否有中间链
+	HasChain    bool      `json:"has_chain"` // 是否有中间链
 	Description string    `json:"description"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
@@ -39,8 +39,8 @@ type CertBundle struct {
 type CertStatus struct {
 	Domain      string    `json:"domain"`
 	AgentID     string    `json:"agent_id"`
-	Fingerprint string    `json:"fingerprint"`  // 本地当前指纹
-	Version     int64     `json:"version"`       // 本地当前版本
+	Fingerprint string    `json:"fingerprint"` // 本地当前指纹
+	Version     int64     `json:"version"`     // 本地当前版本
 	LastSyncAt  time.Time `json:"last_sync_at"`
 	NginxStatus string    `json:"nginx_status"` // running / stopped / unknown
 	SyncOK      bool      `json:"sync_ok"`
@@ -63,6 +63,7 @@ type EtcdConfig struct {
 
 type AlertConfig struct {
 	WebhookURL     string   `yaml:"webhook_url"`
+	Keywords       string   `yaml:"keywords"`         // 消息关键词，逗号分隔
 	ExpireWarnDays int      `yaml:"expire_warn_days"` // 默认 30
 	EnableEmail    bool     `yaml:"enable_email"`
 	SMTPHost       string   `yaml:"smtp_host"`
@@ -82,12 +83,12 @@ type ServerConfig struct {
 }
 
 type AgentConfig struct {
-	AgentID        string     `yaml:"agent_id"`          // 默认 hostname
+	AgentID        string     `yaml:"agent_id"` // 默认 hostname
 	EtcdConfig     EtcdConfig `yaml:"etcd"`
-	NginxReloadCmd string     `yaml:"nginx_reload_cmd"`  // 默认 nginx -s reload
-	CertBaseDir    string     `yaml:"cert_base_dir"`     // 默认 /etc/nginx/ssl
-	Domains        []string   `yaml:"domains"`           // 空=同步全部
-	PollInterval   int        `yaml:"poll_interval"`     // 秒，默认 300
+	NginxReloadCmd string     `yaml:"nginx_reload_cmd"` // 默认 nginx -s reload
+	CertBaseDir    string     `yaml:"cert_base_dir"`    // 默认 /etc/nginx/ssl
+	Domains        []string   `yaml:"domains"`          // 空=同步全部
+	PollInterval   int        `yaml:"poll_interval"`    // 秒，默认 300
 	LogLevel       string     `yaml:"log_level"`
 	LogFile        string     `yaml:"log_file"`
 	DryRun         bool       `yaml:"dry_run"`
