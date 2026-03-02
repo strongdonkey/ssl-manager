@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/yourorg/ssl-manager/internal/model"
+	"github.com/strongdonkey/ssl-manager/internal/model"
 	"go.uber.org/zap"
 )
 

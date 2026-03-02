@@ -9,10 +9,10 @@ import (
 	"syscall"
 	"time"
 
-	certmgr "github.com/yourorg/ssl-manager/internal/cert"
-	etcdclient "github.com/yourorg/ssl-manager/internal/etcd"
-	"github.com/yourorg/ssl-manager/internal/model"
-	"github.com/yourorg/ssl-manager/internal/nginx"
+	certmgr "github.com/strongdonkey/ssl-manager/internal/cert"
+	etcdclient "github.com/strongdonkey/ssl-manager/internal/etcd"
+	"github.com/strongdonkey/ssl-manager/internal/model"
+	"github.com/strongdonkey/ssl-manager/internal/nginx"
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
 )

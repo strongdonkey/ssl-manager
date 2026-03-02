@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/yourorg/ssl-manager/internal/model"
+	"github.com/strongdonkey/ssl-manager/internal/model"
 	clientv3 "go.etcd.io/etcd/client/v3"
 	"go.uber.org/zap"
 )

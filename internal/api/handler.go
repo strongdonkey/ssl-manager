@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/yourorg/ssl-manager/internal/cert"
-	etcdclient "github.com/yourorg/ssl-manager/internal/etcd"
-	"github.com/yourorg/ssl-manager/internal/model"
+	"github.com/strongdonkey/ssl-manager/internal/cert"
+	etcdclient "github.com/strongdonkey/ssl-manager/internal/etcd"
+	"github.com/strongdonkey/ssl-manager/internal/model"
 	"go.uber.org/zap"
 )
 

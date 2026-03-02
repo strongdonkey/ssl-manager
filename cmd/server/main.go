@@ -11,10 +11,10 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/yourorg/ssl-manager/internal/alert"
-	"github.com/yourorg/ssl-manager/internal/api"
-	etcdclient "github.com/yourorg/ssl-manager/internal/etcd"
-	"github.com/yourorg/ssl-manager/internal/model"
+	"github.com/strongdonkey/ssl-manager/internal/alert"
+	"github.com/strongdonkey/ssl-manager/internal/api"
+	etcdclient "github.com/strongdonkey/ssl-manager/internal/etcd"
+	"github.com/strongdonkey/ssl-manager/internal/model"
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
 )

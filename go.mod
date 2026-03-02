@@ -1,4 +1,4 @@
-module github.com/yourorg/ssl-manager
+module github.com/strongdonkey/ssl-manager
 
 go 1.21
 
