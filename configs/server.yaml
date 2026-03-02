@@ -31,7 +31,7 @@ channel:
 # 钉钉通知配置
 dingtalk:
   enabled: true  # 是否启用钉钉通知（默认关闭，生产环境开启）
-  webhook_url: "https://oapi.dingtalk.com/robot/send?access_token=37ec916ebb399c327fadb5b037bab60589454275c4a9578fee1afee319ed39a4"
+  webhook_url: "https://oapi.dingtalk.com/robot/send?access_token=xxxxxx"
   keywords: "服务器"
   secret: ""  # 钉钉机器人密钥（可选，建议配置以增强安全性）
   at_mobiles: []  # @的手机号列表，例如: ["13800138000", "13900139000"]

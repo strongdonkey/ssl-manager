@@ -18,9 +18,9 @@ nginx_reload_cmd: "nginx -s reload"
 cert_base_dir: "/etc/nginx/ssl"
 
 # 本 agent 负责的域名（留空则同步 etcd 中全部域名）
-domains:
-  - "example.com"
-  - "api.service.io"
+# domains:
+#   - "example.com"
+#   - "api.service.io"
 
 # 轮询间隔（秒）。Agent 每隔此时间对比 etcd 版本号，有差异则拉取并更新
 poll_interval: 300     # 5 分钟

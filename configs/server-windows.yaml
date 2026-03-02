@@ -16,7 +16,7 @@ etcd:
 
 alert:
   expire_warn_days: 30
-  webhook_url: "https://oapi.dingtalk.com/robot/send?access_token=37ec916ebb399c327fadb5b037bab60589454275c4a9578fee1afee319ed39a4"     # 钉钉/企微 Webhook URL
+  webhook_url: "https://oapi.dingtalk.com/robot/send?access_token=xxxxxx"     # 钉钉/企微 Webhook URL
   keywords: "服务器"
   enable_email: false
   smtp_host: "smtp.example.com"
